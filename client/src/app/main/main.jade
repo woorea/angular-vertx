@@ -5,15 +5,9 @@ div
     div
       h1 #developers
       ul
-        li
-          span.status.online
-          span @beatriz
-        li
-          span.status.out
-          span @iker
-        li
-          span.status.offline
-          span @hugo
+        li(data-ng-repeat="developer in main.robochat.developers")
+          span.status(data-ng-class="developer.status")
+          span(data-ng-bind="'@' + developer.name")
     footer
   div#content
     header
@@ -21,20 +15,14 @@ div
         h1 #developers
       div(id="header-menu")
         input(type="search" placeholder="Search...")
-    ul
-      li(data-ng-repeat="message in [].constructor(30) track by $index")
+    ul(data-robochat-messages messages="main.robochat.messages")
+      li(data-ng-repeat="message in main.robochat.messages track by $index")
         img.message-image(src="assets/images/user.jpg")
         div.message-content
           header
-            span.member luis
-            span.timestamp 23:11 PM
-          div
-            | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            | tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            | quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            | consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            | cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            | proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            span.member(data-ng-bind="message.member")
+            span.timestamp(data-ng-bind="message.ts | date:'HH:mm:ss'")
+          div(data-ng-bind="message.text")
           footer
     footer
-      textarea
+        textarea(data-ng-model="main.message" ng-keyup="$event.keyCode == 13 && main.post()")
