@@ -1,0 +1,172 @@
+span.status {
+
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  margin-right: 8px;
+
+  &.offline {
+    background-color: grey;
+  }
+  &.online {
+    background-color: greenyellow;
+  }
+  &.out {
+    background-color: orange;
+  }
+
+}
+#sidebar {
+  position:absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+
+  background-color: navy;
+
+  font-size: 1.4rem;
+  color: white;
+
+  header {
+
+    padding: 10px;
+
+    background-color: indigo;
+
+    h1 {
+      margin: 10px 0 10px;
+      font-size: 2.4rem;
+    }
+
+  }
+
+  > div {
+
+    padding: 10px;
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.8rem;
+    }
+
+    ul {
+      @extend .list-unstyled;
+      margin-bottom: 20px;
+    }
+
+  }
+
+  a {
+    color: white;
+  }
+
+
+}
+
+#content {
+  position:absolute;
+  top: 0;
+  left: 250px;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  > header {
+
+    display: flex;
+
+    height: 60px;
+    padding: 20px 20px 0;
+
+    #header-title {
+      flex: 1 1;
+
+      display: flex;
+      justify-content: flex-start;
+
+      h1 {
+        font-size: 2.4rem;
+        margin: 0;
+      }
+
+    }
+    #header-menu {
+      flex: 1 1;
+
+      display: flex;
+      justify-content: flex-end;
+
+      input {
+        @extend .form-control;
+        width: 250px;
+      }
+
+    }
+  }
+
+  ul {
+
+    flex: 1 1;
+
+    padding: 20px;
+
+    li {
+      display: flex;
+
+      font-size: 1.4rem;
+
+      img.message-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+      }
+
+      div.message-content {
+        flex: 1 1;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+
+        header {
+
+          .member {
+            font-weight: bold;
+            text-transform: lowercase;
+            color: #222222;
+          }
+
+          .timestamp {
+            margin-left: 8px;
+            color: #c1c2c3;
+          }
+
+        }
+
+      }
+
+    }
+  }
+
+  footer {
+    padding: 20px;
+
+    textarea {
+      @extend .form-control;
+    }
+
+  }
+
+}
+
+@media (max-width: $screen-xs-max) {
+  #sidebar {
+    display: none;
+  }
+  #content {
+    left: 0;
+  }
+}

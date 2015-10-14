@@ -1,0 +1,10 @@
+node_modules/
+bower_components/
+coverage/
+.sass-cache/
+.tmp/
+dist/
+target/
+.idea/
+.vertx/
+*.iml
