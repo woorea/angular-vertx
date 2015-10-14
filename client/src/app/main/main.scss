@@ -1,3 +1,6 @@
+html {
+  overflow: hidden;
+}
 span.status {
 
   display:inline-block;
@@ -22,7 +25,7 @@ span.status {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 250px;
+  width: 200px;
 
   background-color: navy;
 
@@ -68,7 +71,7 @@ span.status {
 #content {
   position:absolute;
   top: 0;
-  left: 250px;
+  left: 200px;
   bottom: 0;
   right: 0;
 
@@ -77,10 +80,10 @@ span.status {
 
   > header {
 
+    flex: 0 0 70px;
     display: flex;
 
-    height: 60px;
-    padding: 20px 20px 0;
+    padding: 20px;
 
     #header-title {
       flex: 1 1;
@@ -110,9 +113,13 @@ span.status {
 
   ul {
 
+    @extend .list-unstyled;
+
     flex: 1 1;
 
-    padding: 20px;
+    margin: 0px 20px 0;
+
+    overflow-y: scroll;
 
     li {
       display: flex;
@@ -127,10 +134,9 @@ span.status {
 
       div.message-content {
         flex: 1 1;
-        margin-left: 10px;
+        margin: 0 25px 0 10px;
         display: flex;
         flex-direction: column;
-
         header {
 
           .member {
@@ -152,7 +158,9 @@ span.status {
   }
 
   footer {
-    padding: 20px;
+
+    margin: 20px 0;
+    padding: 0 20px;
 
     textarea {
       @extend .form-control;

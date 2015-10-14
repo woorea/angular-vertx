@@ -6,17 +6,14 @@ div
       h1 #developers
       ul
         li
-          a(href="")
-            span.status.online
-            span @beatriz
+          span.status.online
+          span @beatriz
         li
-          a(href="")
-            span.status.out
-            span @iker
+          span.status.out
+          span @iker
         li
-          a(href="")
-            span.status.offline
-            span @hugo
+          span.status.offline
+          span @hugo
     footer
   div#content
     header
@@ -25,7 +22,7 @@ div
       div(id="header-menu")
         input(type="search" placeholder="Search...")
     ul
-      li
+      li(data-ng-repeat="message in [].constructor(30) track by $index")
         img.message-image(src="assets/images/user.jpg")
         div.message-content
           header
