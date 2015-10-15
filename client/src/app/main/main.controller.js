@@ -2,11 +2,13 @@ import { RoboChat } from './robochat.service';
 
 export class MainController {
 
-  constructor () {
+  constructor ($scope) {
 
     'ngInject';
 
-    this.robochat = new RoboChat();
+    this.robochat = new RoboChat(() => {
+      $scope.$applyAsync(() => {})
+    });
 
   }
 

@@ -1,6 +1,31 @@
 export class RoboChat {
 
-  constructor () {
+  constructor (listener) {
+
+    let ws = new WebSocket("ws://localhost:8080/realtime")
+
+    ws.onopen = (event) => {
+      console.log(event);
+    }
+
+    ws.onclose = (event) => {
+      console.log(event);
+    }
+
+    ws.onmessage = (event) => {
+      console.log(event);
+      let json = JSON.parse(event.data);
+      if(json.type === 'message') {
+          this.messages.push(json)
+      }
+      listener();
+    }
+
+    ws.onerror = (event) => {
+      console.log(event);
+    }
+
+    this.ws = ws;
 
     this.developers = [
       {
@@ -28,9 +53,8 @@ export class RoboChat {
   }
 
   post(message) {
-    message.member = this.me.name;
-    message.ts = new Date().getTime();
-    this.messages.push(message)
+    message.type = "message";
+    this.ws.send(JSON.stringify(message));
   }
 
 }
