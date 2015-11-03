@@ -70,6 +70,13 @@ public class RoboChat {
               });
 
               break;
+            case "fav":
+
+              sockets.forEach(socket -> {
+                vertx.eventBus().send(socket, input.toString());
+              });
+
+              break;
             default:
               ws.writeFinalTextFrame(DEFAULT_MESSAGE);
           }

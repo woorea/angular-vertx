@@ -18,6 +18,14 @@ export class RoboChat {
       if(json.type === 'message') {
           this.messages.push(json)
       }
+      if(json.type === "fav"){
+          this.messages.forEach(function(msg){
+              if( msg.ts == json.ts  ){
+                  msg.fav_count = json.fav_count;
+                 
+              }
+          });
+      }
       listener();
     }
 
@@ -54,7 +62,15 @@ export class RoboChat {
 
   post(message) {
     message.type = "message";
+    message.fav_count=0;
+    //message.fav=false;
     this.ws.send(JSON.stringify(message));
+  }
+  postFav(message){
+    message.type = "fav";
+    //message.fav = false;
+    //this.ws.send(JSON.stringify({ text: message.text, fav_count: message.fav_count, member: message.member }));
+       this.ws.send(JSON.stringify(message));
   }
 
 }
