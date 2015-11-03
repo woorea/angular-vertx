@@ -2,7 +2,7 @@ export class RoboChat {
 
   constructor (listener) {
 
-    let ws = new WebSocket("ws://localhost:8080/realtime")
+    let ws = new WebSocket("ws://localhost:8000/realtime")
 
     ws.onopen = (event) => {
       console.log(event);
