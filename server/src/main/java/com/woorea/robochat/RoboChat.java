@@ -1,15 +1,13 @@
 package com.woorea.robochat;
 
+import com.woorea.robochat.model.Message;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +36,7 @@ public class RoboChat {
       HttpServer server = vertx.createHttpServer();
 
       Router router = Router.router(vertx);
+      final ArrayList<Message> messages = new ArrayList<>();
 
       //onopen
       router.route("/realtime").handler(routingContext -> {
@@ -64,6 +63,8 @@ public class RoboChat {
                 input.put("text", "name changed!");
 
               }
+              final Message msg = new Message(input);
+              messages.add(msg);
 
               sockets.forEach(socket -> {
                 vertx.eventBus().send(socket, input.toString());
@@ -72,10 +73,30 @@ public class RoboChat {
               break;
             case "fav":
 
-              sockets.forEach(socket -> {
-                vertx.eventBus().send(socket, input.toString());
-              });
+              Message msgCache = getMessageCache(messages,input.getString("text"));
+              if(msgCache != null){
+                String member = members.get(ws.textHandlerID());
+                if( msgCache.addFav(member)){
 
+                  sockets.forEach(socket -> {
+                    vertx.eventBus().send(socket, msgCache.toFavString());
+                  });
+
+                }
+              }
+              break;
+            case "del_fav":
+
+              Message msgDelCache = getMessageCache(messages,input.getString("text"));
+              if(msgDelCache != null) {
+                String member = members.get(ws.textHandlerID());
+                if (msgDelCache.deleteFav(member)) {
+
+                  sockets.forEach(socket -> {
+                    vertx.eventBus().send(socket, msgDelCache.toFavString());
+                  });
+                }
+              }
               break;
             default:
               ws.writeFinalTextFrame(DEFAULT_MESSAGE);
@@ -96,8 +117,14 @@ public class RoboChat {
 
       });
 
-      server.requestHandler(router::accept).listen(8080);
+      server.requestHandler(router::accept).listen(8000);
 
     }
+  public static Message getMessageCache(final List<Message> messages, final String text){
+    for(Message message : messages){
+      if(message.getMessage().equals(text)) return message;
+    }
+    return null;
+  }
 
 }
