@@ -68,9 +68,13 @@ export class RoboChat {
   }
   postFav(message){
     message.type = "fav";
-    //message.fav = false;
+ 
     //this.ws.send(JSON.stringify({ text: message.text, fav_count: message.fav_count, member: message.member }));
        this.ws.send(JSON.stringify(message));
   }
-
+ postRmFav(message){
+    message.type = "del_fav";   
+    //this.ws.send(JSON.stringify({ text: message.text, fav_count: message.fav_count, member: message.member }));
+    this.ws.send(JSON.stringify(message));
+  }
 }

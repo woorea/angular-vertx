@@ -23,7 +23,7 @@ div
           header
             span.member(data-ng-bind="message.member")
             span.timestamp(data-ng-bind="message.ts | date:'HH:mm:ss'")
-            div(fav-message='0') test
+            div(fav-message)
           div(data-ng-bind="message.text")
           footer
     footer

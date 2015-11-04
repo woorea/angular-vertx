@@ -36,12 +36,14 @@ class FavController {
         $scope.message.fav = !$scope.message.fav;
         if($scope.message.fav == true){
             $scope.message.fav_count += 1;            
+            $scope.$parent.main.postFav($scope.message);       
         }else{
             $scope.message.fav_count -= 1;            
+            $scope.$parent.main.postRmFav($scope.message);       
         }        
         $scope.$parent.$apply();
         $log.info("fav clicked");
-        $scope.$parent.main.postFav($scope.message);       
+        
     }
   }
 }   

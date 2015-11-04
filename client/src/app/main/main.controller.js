@@ -21,5 +21,9 @@ export class MainController {
   postFav(message){
     this.robochat.postFav(message);
   }
+    
+  postRmFav(message){
+    this.robochat.postRmFav(message);
+  }
 
 }
