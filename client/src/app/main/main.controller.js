@@ -18,5 +18,8 @@ export class MainController {
     })
     this.message = '';
   }
+  postFav(message){
+    this.robochat.postFav(message);
+  }
 
 }
