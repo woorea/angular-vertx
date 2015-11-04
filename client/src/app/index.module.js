@@ -10,15 +10,24 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 import { roboChatMessagesDirective } from './main/robochat.messages.directive';
 
-angular.module('client', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ui.bootstrap', 'toastr'])
+angular.module('client', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ui.bootstrap', 'toastr', 'hljs'])
   .constant('malarkey', malarkey)
   .constant('moment', moment)
   .config(config)
   .config(routerConfig)
+  .config(function (hljsServiceProvider) {
+   hljsServiceProvider.setOptions({
+    // replace tab with 4 spaces
+    tabReplace: '    '
+   });
+  })
   .run(runBlock)
   .service('githubContributor', GithubContributorService)
   .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
   .directive('acmeNavbar', NavbarDirective)
   .directive('acmeMalarkey', MalarkeyDirective)
-  .directive('robochatMessages', roboChatMessagesDirective);
+  .directive('robochatMessages', roboChatMessagesDirective){
+  //hljs.initHighlighting();  
+};
+//hljs.initHighlighting();
