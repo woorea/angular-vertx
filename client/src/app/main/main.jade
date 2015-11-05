@@ -8,7 +8,6 @@ div
         li(data-ng-repeat="developer in main.robochat.developers")
           span.status(data-ng-class="developer.status")
           span(data-ng-bind="'@' + developer.name")
-    div(hljs no-scape) 
     footer
   div#content
     header
@@ -23,9 +22,7 @@ div
           header
             span.member(data-ng-bind="message.member")
             span.timestamp(data-ng-bind="message.ts | date:'HH:mm:ss'")
-          div(data-ng-bind="message.text")
-          div(hljs no-scape ng-bind-html="message.text" ) 
-          div(hljs no-scape ng-bind-html-unsafe="message.text" ) 
+          div(ng-bind="message.text" highlight-message="")
           footer
     footer
         textarea(data-ng-model="main.message" ng-keyup="$event.keyCode == 13 && main.post()")

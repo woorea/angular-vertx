@@ -9,6 +9,7 @@ import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service'
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 import { roboChatMessagesDirective } from './main/robochat.messages.directive';
+import { highlightMessageDirective } from './main/highlight.message.directive';
 
 angular.module('client', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ui.bootstrap', 'toastr', 'hljs'])
   .constant('malarkey', malarkey)
@@ -16,18 +17,16 @@ angular.module('client', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ng
   .config(config)
   .config(routerConfig)
   .config(function (hljsServiceProvider) {
-   hljsServiceProvider.setOptions({
-    // replace tab with 4 spaces
-    tabReplace: '    '
-   });
-  })
+      hljsServiceProvider.setOptions({
+        // replace tab with 4 spaces
+        tabReplace: '    '
+      });
+    })
   .run(runBlock)
   .service('githubContributor', GithubContributorService)
   .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
   .directive('acmeNavbar', NavbarDirective)
   .directive('acmeMalarkey', MalarkeyDirective)
-  .directive('robochatMessages', roboChatMessagesDirective){
-  //hljs.initHighlighting();  
-};
-//hljs.initHighlighting();
+  .directive('robochatMessages', roboChatMessagesDirective)
+  .directive('highlightMessage',['$compile', highlightMessageDirective]);
