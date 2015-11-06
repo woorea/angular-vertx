@@ -8,12 +8,22 @@ export function highlightMessageDirective( $compile ) {
               return scope.$eval(attr.compile);
             },
             function(value) {              
-                var content = el.text();
-                var pattern = new RegExp(/[~`\^\[\]\\/{}|\\<>]/);
-                if(pattern.test(content)){
+                var content = el.text();   
+                var codeParts = content.split("```").filter(function(el) {return el.length != 0});
+                var startCode = (content.indexOf("```")==0)
+                if(codeParts.length>1 || startCode){
                     el.html("");
-                    el.append("<hljs no-scape>"+content+"</hljs>");                  
-                    $compile(el.contents())(scope);                  
+                    
+                    codeParts.forEach(function(part, it){
+                        if(startCode != (it%2)){
+                          console.log("is Code");
+                            el.append("<hljs no-scape>"+part+"</hljs>");    
+                        }else{
+                            el.append(part);
+                        } 
+                        console.log(it, part);
+                    });                    
+                     $compile(el.contents())(scope);                  
                 }
                 // Angular un-watch 
                 onlyRunOne();
